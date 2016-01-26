@@ -21,3 +21,11 @@ SwissRunner utilizes the following principles and technologies:
 ```
 ./gradlew clean :core:test
 ```
+
+## Contributing
+
+### Translations
+
+See ```app/src/main/resources/bundles``` directory.  I will only be doing english translations myself, but anyone is free to open a pull
+request against this repository with a new set of translations.  Since I am not a language expert, I will ask that the community peer 
+reviews these translations to ensure accuracy.  I'll also be checking basic translation via Google Translate.
