@@ -1,0 +1,10 @@
+.actionButton {
+    -fx-background-color: linear-gradient(#63b8ee 5%, #468ccf 100%);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-text-fill: white;
+}
+
+.actionButton:hover {
+    -fx-background-color: linear-gradient(#468ccf 5%, #63b8ee 100%);
+}

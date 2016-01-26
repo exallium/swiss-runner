@@ -1,0 +1,45 @@
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<GridPane styleClass="viewPlayersPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.exallium.swissrunner.app.viewcontrollers.ViewPlayersViewController">
+    <rowConstraints>
+        <RowConstraints percentHeight="10"/>
+        <RowConstraints percentHeight="90"/>
+    </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+        <ColumnConstraints percentWidth="10" />
+    </columnConstraints>
+    <Button styleClass="actionButton" text="%add_player" onAction="#onAddPlayer" GridPane.rowIndex="0" GridPane.columnIndex="9" />
+    <TableView fx:id="playersTable" GridPane.rowIndex="1" GridPane.columnSpan="10">
+        <columns>
+            <TableColumn text="%player_name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="name" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="%player_id">
+                <cellValueFactory>
+                    <PropertyValueFactory property="id" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <stylesheets>
+        <URL value="@/fxcss/shared.css" />
+        <URL value="@/fxcss/view_players.css" />
+    </stylesheets>
+</GridPane>

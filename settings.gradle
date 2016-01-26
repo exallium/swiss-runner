@@ -1,0 +1,4 @@
+rootProject.name = 'swiss-runner'
+include 'core'
+include 'app'
+

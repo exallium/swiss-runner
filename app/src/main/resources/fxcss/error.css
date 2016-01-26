@@ -1,0 +1,5 @@
+.errorPane {
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+    -fx-padding: 10px;
+}

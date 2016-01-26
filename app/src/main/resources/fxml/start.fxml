@@ -1,0 +1,73 @@
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.exallium.swissrunner.app.viewcontrollers.StartViewController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="25" />
+        <ColumnConstraints percentWidth="75" />
+    </columnConstraints>
+    <ListView fx:id="recentTournaments" GridPane.columnIndex="0" />
+    <GridPane GridPane.columnIndex="1"
+              styleClass="startButtonPane">
+        <rowConstraints>
+            <RowConstraints percentHeight="30" />
+            <RowConstraints percentHeight="30" />
+            <RowConstraints percentHeight="30" />
+            <RowConstraints percentHeight="10" />
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50" />
+            <ColumnConstraints percentWidth="50" />
+        </columnConstraints>
+        <Button GridPane.rowIndex="0"
+                GridPane.columnIndex="0"
+                GridPane.columnSpan="2"
+                onAction="#onCreateTournament"
+                maxWidth="Infinity"
+                text="%create_tournament"
+                GridPane.hgrow="ALWAYS"
+                maxHeight="Infinity"
+                GridPane.vgrow="ALWAYS"/>
+        <Button GridPane.rowIndex="1"
+                GridPane.columnIndex="0"
+                GridPane.columnSpan="2"
+                onAction="#onViewPlayers"
+                maxWidth="Infinity"
+                text="%view_players"
+                GridPane.hgrow="ALWAYS"
+                maxHeight="Infinity"
+                GridPane.vgrow="ALWAYS"/>
+        <Button GridPane.rowIndex="2"
+                GridPane.columnIndex="0"
+                GridPane.columnSpan="2"
+                onAction="#onImportExport"
+                maxWidth="Infinity"
+                text="%import_export"
+                GridPane.hgrow="ALWAYS"
+                maxHeight="Infinity"
+                GridPane.vgrow="ALWAYS"/>
+        <Button GridPane.rowIndex="3"
+                GridPane.columnIndex="0"
+                onAction="#onPreferences"
+                text="%preferences"
+                maxWidth="Infinity"
+                maxHeight="Infinity"
+                GridPane.hgrow="ALWAYS"
+                GridPane.vgrow="ALWAYS" />
+        <Button GridPane.rowIndex="3"
+                GridPane.columnIndex="1"
+                onAction="#onQuit"
+                text="%quit"
+                maxWidth="Infinity"
+                maxHeight="Infinity"
+                GridPane.hgrow="ALWAYS"
+                GridPane.vgrow="ALWAYS" />
+    </GridPane>
+    <stylesheets>
+        <URL value="@/fxcss/shared.css" />
+        <URL value="@/fxcss/start.css" />
+    </stylesheets>
+</GridPane>
