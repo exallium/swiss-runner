@@ -8,6 +8,8 @@ SwissRunner utilizes the following principles and technologies:
 * H2 as a database layer
 * JUnit 4 tests for Core
 
+## Running this code
+
 * To build
 
 ```
