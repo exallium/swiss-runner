@@ -1,9 +1,9 @@
 package com.exallium.swissrunner.core.presenters
 
+import com.exallium.swissrunner.core.entities.Tournament
 import com.exallium.swissrunner.core.view.Router
 import com.exallium.swissrunner.core.receivers.TestStartReceiver
 import com.exallium.swissrunner.core.receivers.testTournaments
-import com.exallium.swissrunner.core.viewmodels.StartViewModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,10 +27,10 @@ class StartPresenterTest {
 
     @Test
     fun testSetupObject() {
-        val testSubscriber = TestSubscriber<StartViewModel>()
+        val testSubscriber = TestSubscriber<List<Tournament>>()
         presenter.setupObservable.subscribe(testSubscriber)
         testSubscriber.assertNoErrors()
-        testSubscriber.assertReceivedOnNext(listOf(StartViewModel(testTournaments.map{ Pair(it.id, it.name) })))
+        testSubscriber.assertReceivedOnNext(listOf(testTournaments))
     }
 
     @Test

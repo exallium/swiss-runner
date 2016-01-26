@@ -4,6 +4,7 @@ import com.exallium.swissrunner.core.entities.Player
 import com.exallium.swissrunner.core.presenters.ModifyPlayerPresenter
 import rx.Observable
 import kotlin.collections.firstOrNull
+import kotlin.text.isEmpty
 
 class TestModifyPlayerReceiver : ModifyPlayerPresenter.ModifyPlayerReceiver {
 
@@ -17,10 +18,11 @@ class TestModifyPlayerReceiver : ModifyPlayerPresenter.ModifyPlayerReceiver {
         // run validation...
         if (player.id < 1) {
             it.onError(Exception("ID cannot be less than 1"))
-            return@create
+        } else if (player.name.isEmpty()){
+            it.onError(Exception("Name cannot be blank"))
+        } else {
+            it.onNext(player)
         }
-
-        it.onNext(player)
         it.onCompleted()
     }
 

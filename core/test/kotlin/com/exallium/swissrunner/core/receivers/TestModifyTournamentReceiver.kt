@@ -18,7 +18,7 @@ class TestModifyTournamentReceiver : ModifyTournamentPresenter.ModifyTournamentR
         return Observable.just(Tournament(id, "New Tournament"))
     }
 
-    override fun addPlayerToTournament(tournament: Tournament, player: Player) = Observable.just(PlayerToTournamentLink(player, tournament))
+    override fun addPlayerToTournament(tournament: Tournament, player: Player) = Observable.just(PlayerToTournamentLink(1, player, tournament))
 
     override fun removePlayerFromTournament(tournament: Tournament, player: Player) = Observable.just(player)
 

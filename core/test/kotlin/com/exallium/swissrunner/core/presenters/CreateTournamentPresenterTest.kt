@@ -1,8 +1,9 @@
 package com.exallium.swissrunner.core.presenters
 
+import com.exallium.swissrunner.core.entities.Player
 import com.exallium.swissrunner.core.receivers.TestModifyTournamentReceiver
+import com.exallium.swissrunner.core.receivers.testPlayers
 import com.exallium.swissrunner.core.view.Router
-import com.exallium.swissrunner.core.viewmodels.PlayerViewModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,16 +26,16 @@ class CreateTournamentPresenterTest {
 
     @Test
     public fun testOnAddUserToTournament() {
-        val testSubscriber = TestSubscriber<PlayerViewModel>()
+        val testSubscriber = TestSubscriber<Player>()
         modifyTournamentPresenter.onAddPlayerToTournament(1).subscribe(testSubscriber)
-        testSubscriber.assertReceivedOnNext(listOf(PlayerViewModel(1)))
+        testSubscriber.assertReceivedOnNext(listOf(testPlayers[0]))
     }
 
     @Test
     public fun testOnRemoveUserToTournament() {
-        val testSubscriber = TestSubscriber<PlayerViewModel>()
+        val testSubscriber = TestSubscriber<Player>()
         modifyTournamentPresenter.onRemovePlayerFromTournament(1).subscribe(testSubscriber)
-        testSubscriber.assertReceivedOnNext(listOf(PlayerViewModel(1)))
+        testSubscriber.assertReceivedOnNext(listOf(testPlayers[0]))
     }
 
 
