@@ -31,7 +31,7 @@ class ViewPlayersPresenter(private val router: Router,
     interface ViewPlayersReceiver {
         fun getListOfPlayers(): Observable<List<Player>>
         fun getPlayer(playerPrimaryKey: Long): Observable<Player>
-        fun deletePlayer(playerPrimaryKey: Long?): Observable<Player>
+        fun deletePlayer(playerPrimaryKey: Long?)
         fun onPlayerCreatedObservable(): Observable<Long>
         fun onPlayerDeletedObservable(): Observable<Long>
         fun onPlayerUpdatedObservable(): Observable<Long>
@@ -48,7 +48,7 @@ class ViewPlayersPresenter(private val router: Router,
     }
 
     public fun removePlayer(player: Player?) {
-        viewPlayersReceiver.deletePlayer(player?.pk).subscribe()
+        viewPlayersReceiver.deletePlayer(player?.pk)
     }
 
     public fun onPlayerRemoved() = viewPlayersReceiver.onPlayerDeletedObservable()
