@@ -28,10 +28,13 @@ import com.exallium.swissrunner.core.presenters.ModifyTournamentPresenter
 import rx.Observable
 
 class TestModifyTournamentReceiver : ModifyTournamentPresenter.ModifyTournamentReceiver {
+
+    var pk: Long = 1
+
     override fun getOrCreateTournament(tournamentId: Long?): Observable<Tournament> {
 
         // If id is valid use it, otherwise get next available id
-        val id = if (tournamentId != null && tournamentId > 0) tournamentId else 1
+        val id = if (tournamentId != null && tournamentId > 0) tournamentId else pk++
 
         // Check to see if tournament exists...
 

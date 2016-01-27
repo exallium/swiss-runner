@@ -31,7 +31,7 @@ import kotlin.text.isEmpty
 class ModifyPlayerReceiver(val databaseManager: DatabaseManager) : ModifyPlayerPresenter.ModifyPlayerReceiver {
     override fun getPlayer(id: Long?) = Observable.create<Player?> {
         val resultSet = databaseManager.executeQuery("SELECT * FROM PLAYER WHERE PK = $id")
-        it.onNext(if (resultSet.next()) readPlayer(resultSet) else null)
+        it.onNext(resultSet.readPlayers().firstOrNull())
         it.onCompleted()
     }
 
@@ -54,8 +54,6 @@ class ModifyPlayerReceiver(val databaseManager: DatabaseManager) : ModifyPlayerP
 
         it.onCompleted()
     }
-
-    private fun readPlayer(resultSet: ResultSet) = Player(resultSet.getLong("PK"), resultSet.getString("NAME"), resultSet.getLong("ID"))
 
     private fun validatePlayer(player: Player): Exception? {
 

@@ -39,7 +39,7 @@ class ModifyTournamentPresenter(private val router: Router,
         fun getPlayer(playerId: Long): Observable<Player>
     }
 
-    private val tournamentObservable = modifyTournamentReceiver.getOrCreateTournament(tournamentPrimaryKey)
+    private val tournamentObservable = modifyTournamentReceiver.getOrCreateTournament(tournamentPrimaryKey).first()
 
     public fun onStartTournament() {
         tournamentObservable.subscribe { router.goToNextRound(it.pk) }

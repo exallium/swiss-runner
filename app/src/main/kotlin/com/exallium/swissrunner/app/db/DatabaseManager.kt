@@ -95,7 +95,7 @@ class DatabaseManager {
             return
         }
 
-        val createSql = "CREATE TABLE TOURNAMENT (pk BIGINT AUTO_INCREMENT, name VARCHAR(25) NOT NULL, PRIMARY KEY (pk))"
+        val createSql = "CREATE TABLE TOURNAMENT (pk BIGINT AUTO_INCREMENT, name VARCHAR(25) NOT NULL, state INTEGER NOT NULL, PRIMARY KEY (pk))"
         logger.debug(createSql)
         connection.createStatement().executeUpdate(createSql)
     }

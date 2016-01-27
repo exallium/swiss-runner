@@ -29,23 +29,18 @@ import java.sql.ResultSet
 
 class ViewPlayersReceiver(private val databaseManager: DatabaseManager) : ViewPlayersPresenter.ViewPlayersReceiver {
 
-    private fun makePlayer(resultSet: ResultSet) = Player(resultSet.getLong("pk"), resultSet.getString("name"), resultSet.getLong("id"))
-
     override fun getPlayer(playerPrimaryKey: Long) = Observable.create<Player> {
         val resultSet = databaseManager.executeQuery("SELECT * FROM PLAYER WHERE pk = $playerPrimaryKey")
-        if(resultSet.next()) {
-            it.onNext(makePlayer(resultSet))
-        }
+        val player = resultSet.readPlayers().first()
+        it.onNext(player)
         it.onCompleted()
     }
 
-    override fun getListOfPlayers() = Observable.create<Player> {
+    override fun getListOfPlayers() = Observable.create<List<Player>> {
         val resultSet = databaseManager.executeQuery("SELECT * FROM PLAYER")
-        while(resultSet.next()) {
-            it.onNext(makePlayer(resultSet))
-        }
+        it.onNext(resultSet.readPlayers())
         it.onCompleted()
-    }.toList()
+    }
 
     override fun deletePlayer(playerPrimaryKey: Long?) {
         databaseManager.executeUpdate("DELETE FROM PLAYER WHERE pk = $playerPrimaryKey", Player::class.java, playerPrimaryKey?:-1)
