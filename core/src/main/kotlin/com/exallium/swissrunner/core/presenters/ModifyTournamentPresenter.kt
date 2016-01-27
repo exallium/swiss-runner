@@ -30,7 +30,7 @@ import rx.lang.kotlin.switchOnNext
 
 class ModifyTournamentPresenter(private val router: Router,
                                 private val modifyTournamentReceiver: ModifyTournamentPresenter.ModifyTournamentReceiver,
-                                private val tournamentId: Long?) {
+                                private val tournamentPrimaryKey: Long?) {
 
     interface ModifyTournamentReceiver {
         fun getOrCreateTournament(tournamentId: Long?): Observable<Tournament>
@@ -39,7 +39,7 @@ class ModifyTournamentPresenter(private val router: Router,
         fun getPlayer(playerId: Long): Observable<Player>
     }
 
-    private val tournamentObservable = modifyTournamentReceiver.getOrCreateTournament(tournamentId)
+    private val tournamentObservable = modifyTournamentReceiver.getOrCreateTournament(tournamentPrimaryKey)
 
     public fun onStartTournament() {
         tournamentObservable.subscribe { router.goToNextRound(it.pk) }
