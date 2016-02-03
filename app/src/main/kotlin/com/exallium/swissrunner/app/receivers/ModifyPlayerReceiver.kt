@@ -25,15 +25,10 @@ import com.exallium.swissrunner.app.db.DatabaseManager
 import com.exallium.swissrunner.core.entities.Player
 import com.exallium.swissrunner.core.presenters.ModifyPlayerPresenter
 import rx.Observable
-import java.sql.ResultSet
 import kotlin.text.isEmpty
 
 class ModifyPlayerReceiver(val databaseManager: DatabaseManager) : ModifyPlayerPresenter.ModifyPlayerReceiver {
-    override fun getPlayer(id: Long?) = Observable.create<Player?> {
-        val resultSet = databaseManager.executeQuery("SELECT * FROM PLAYER WHERE PK = $id")
-        it.onNext(resultSet.readPlayers().firstOrNull())
-        it.onCompleted()
-    }
+    override fun getPlayer(id: Long?) = databaseManager.getPlayer(id?:-1)
 
     override fun validateAndSavePlayer(player: Player) = Observable.create<Player> {
         val exception = validatePlayer(player)

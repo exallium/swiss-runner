@@ -54,3 +54,10 @@ private fun <T> ResultSet.read(entityGenerator: EntityGenerator<T>): List<T> {
 
 public fun ResultSet.readPlayers() = this.read(PlayerGenerator)
 public fun ResultSet.readTournaments() = this.read(TournamentGenerator)
+
+public fun ResultSet.getPrimaryKey(): Long {
+    next()
+    val pk = getLong(1)
+    beforeFirst()
+    return pk
+}

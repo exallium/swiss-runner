@@ -21,6 +21,9 @@
 
 package com.exallium.swissrunner.app.db
 
+import com.exallium.swissrunner.app.receivers.getPrimaryKey
+import com.exallium.swissrunner.app.receivers.readPlayers
+import com.exallium.swissrunner.core.entities.Player
 import org.apache.logging.log4j.LogManager
 import rx.Observable
 import rx.lang.kotlin.PublishSubject
@@ -63,21 +66,26 @@ class DatabaseManager {
         return connection.createStatement().executeQuery(sql)
     }
 
-    fun executeUpdate(sql: String, entityClass: Class<*>, entityPk: Long = -1): Int {
+    fun executeUpdate(sql: String, entityClass: Class<*>, entityPk: Long = -1): Pair<ResultSet, Int> {
         logger.debug(sql)
         val statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         val result = statement.executeUpdate()
         if (sql.startsWith("INSERT", true)) {
             val genKeys = statement.generatedKeys
-            genKeys.next()
-            createSubject.onNext(Pair(genKeys.getLong(1), entityClass))
+            createSubject.onNext(Pair(genKeys.getPrimaryKey(), entityClass))
         } else if (sql.startsWith("DELETE", true)) {
             deleteSubject.onNext(Pair(entityPk, entityClass))
         } else if (sql.startsWith("UPDATE", true)) {
             updateSubject.onNext(Pair(entityPk, entityClass))
         }
 
-        return result
+        return Pair(statement.generatedKeys, result)
+    }
+
+    public fun getPlayer(playerPrimaryKey: Long) = Observable.create<Player> {
+        val resultSet = executeQuery("SELECT * FROM PLAYER WHERE PK = $playerPrimaryKey")
+        it.onNext(resultSet.readPlayers().firstOrNull())
+        it.onCompleted()
     }
 
     private fun createPlayerTable() {

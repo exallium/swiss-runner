@@ -22,6 +22,7 @@
 package com.exallium.swissrunner.core.presenters
 
 import com.exallium.swissrunner.core.entities.Player
+import com.exallium.swissrunner.core.entities.Tournament
 import com.exallium.swissrunner.core.receivers.TestModifyTournamentReceiver
 import com.exallium.swissrunner.core.receivers.testPlayers
 import com.exallium.swissrunner.core.view.Router
@@ -34,7 +35,7 @@ import rx.observers.TestSubscriber
 import kotlin.collections.listOf
 
 @RunWith(JUnit4::class)
-class CreateTournamentPresenterTest {
+class ModifyTournamentPresenterTest {
 
     lateinit var router: Router
     lateinit var modifyTournamentPresenter: ModifyTournamentPresenter
@@ -43,6 +44,18 @@ class CreateTournamentPresenterTest {
     public fun setUp() {
         router = Mockito.mock(Router::class.java)
         modifyTournamentPresenter = ModifyTournamentPresenter(router, TestModifyTournamentReceiver(), null)
+    }
+
+    @Test
+    public fun testSetupObservable() {
+        val firstSubscriber = TestSubscriber<Tournament>()
+        val expected = Tournament(1, "New Tournament")
+        modifyTournamentPresenter.setupObservable.subscribe(firstSubscriber)
+        firstSubscriber.assertValue(expected)
+
+        val secondSubscriber = TestSubscriber<Tournament>()
+        modifyTournamentPresenter.setupObservable.subscribe(secondSubscriber)
+        secondSubscriber.assertValue(expected)
     }
 
     @Test

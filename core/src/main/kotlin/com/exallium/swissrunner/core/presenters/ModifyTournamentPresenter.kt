@@ -33,25 +33,25 @@ class ModifyTournamentPresenter(private val router: Router,
                                 private val tournamentPrimaryKey: Long?) {
 
     interface ModifyTournamentReceiver {
-        fun getOrCreateTournament(tournamentId: Long?): Observable<Tournament>
+        fun getOrCreateTournament(tournamentPrimaryKey: Long?): Observable<Tournament>
         fun addPlayerToTournament(tournament: Tournament, player: Player): Observable<PlayerToTournamentLink>
         fun removePlayerFromTournament(tournament: Tournament, player: Player): Observable<Player>
-        fun getPlayer(playerId: Long): Observable<Player>
+        fun getPlayer(playerPrimaryKey: Long): Observable<Player>
     }
 
-    private val tournamentObservable = modifyTournamentReceiver.getOrCreateTournament(tournamentPrimaryKey).first()
+    val setupObservable = modifyTournamentReceiver.getOrCreateTournament(tournamentPrimaryKey).first()
 
     public fun onStartTournament() {
-        tournamentObservable.subscribe { router.goToNextRound(it.pk) }
+        setupObservable.subscribe { router.goToNextRound(it.pk) }
     }
 
-    public fun onAddPlayerToTournament(playerId: Long) = tournamentObservable
+    public fun onAddPlayerToTournament(playerId: Long) = setupObservable
             .zipWith(modifyTournamentReceiver.getPlayer(playerId),
                     { tournament, player -> modifyTournamentReceiver.addPlayerToTournament(tournament, player) })
             .switchOnNext()
             .map { it.player }
 
-    public fun onRemovePlayerFromTournament(playerId: Long) = tournamentObservable
+    public fun onRemovePlayerFromTournament(playerId: Long) = setupObservable
             .zipWith(modifyTournamentReceiver.getPlayer(playerId),
                 { tournament, player -> modifyTournamentReceiver.removePlayerFromTournament(tournament, player) })
             .switchOnNext()
